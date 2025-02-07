@@ -1,0 +1,40 @@
+#La paradoja del cumpleaños
+
+# Código para calcular la probabilidad
+paradoja_cumpleanos <- function(n) {
+  # Probabilidad de que todos tengan cumpleaños diferentes
+  prob_diferente <- 1
+  for (i in 1:(n - 1)) {
+    prob_diferente <- prob_diferente * (365 - i) / 365
+  }
+  # Probabilidad de al menos dos personas compartan cumpleaños
+  prob_paradoja <- 1 - prob_diferente
+  return(prob_paradoja)
+}
+
+# Crear un rango de n desde 2 hasta 70
+n_valores <- 2:70
+
+# Calcular las probabilidades para cada n
+probabilidades <- sapply(n_valores, paradoja_cumpleanos)
+
+# Crear una tabla con los resultados
+tabla_resultados <- data.frame(
+  N = n_valores,
+  Probabilidad = probabilidades
+)
+
+# Mostrar la tabla
+print(tabla_resultados)
+
+# Crear la gráfica con ggplot2
+grafica <- ggplot(tabla_resultados, aes(x = N, y = Probabilidad)) +
+  geom_line(size = 1, color = "blue") +
+  geom_point(size = 2, color = "red") +
+  labs(
+    title = "Paradoja del Cumpleaños",
+    x = "Número de Personas",
+    y = "Probabilidad de Al Menos un Cumpleaños Compartido"
+  ) +
+  theme_minimal()
+print(grafica)
