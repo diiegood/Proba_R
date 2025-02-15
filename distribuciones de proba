@@ -1,0 +1,229 @@
+##FACULTAD DE ECONOMIA, UNAM
+##PROBABILIDAD  Y ESTADISTICA
+##sERVANDO VALDES, BRYAN ZUÑIGA, CARLOS JIMÉNEZ
+
+#Extraccion de muestras 
+
+#Para extraer muestras aleatorias de un conjunto cualquiera utilizamos el comando
+#sample(x, size, replace = FALSE, prob = NULL)
+
+X=c(1,2,3,4,5,6)                #Crea un dado "equlibrado"
+sample(X,2,replace=TRUE)        #Simula dos lanzamientos del dado
+
+X=c("r","r","b","b","b","g")    #Crea una urna con seis bolas de tres colores
+sample(X,3,replace=FALSE)       #Simula la extraccion de tres bolas, sin reemplazamiento
+
+sample(X,3,replace=TRUE)        #Simula la extraccion de tres bolas, con reemplazamiento
+
+#Ejemplo 1. Repetir 100 veces el experimento de tirar cuatro de dados (o tirar cuatro veces el
+#mismo dado) y contar el numero de ocasiones en las que se obtiene un 6.
+
+X=c(1,2,3,4,5,6)                #Crea el "dado"
+Rep=rep(0,100)                  #Vector que almacena el resultado de cada experimento
+Exitos=0                        #Cuenta el numero de exitos (casos con uno o mas seises)
+for(i in 1:100)                 #Inicia el bucle, cada iteracion es un experimento
+{M=sample(X,4,replace=TRUE)     #Genera las cuatro tiradas del dado en cada experimento
+for(j in 1:4)                   #Inicia un nuevo bucle para contar los exitos del
+  #experimento i-esimo
+{if(M[j]==6) Rep[i]=Rep[i]+1}   #Si el elemento j-esimo en M es igual a 6, incrementa
+#el valor de la i-esima celda de Rep en una unidad
+if(Rep[i]>=1) Exitos=Exitos+1}  #Si se encuentra al menos un 6 en el experimento,
+#el contador Suma se incrementa en una unidad.
+
+
+
+#Distribuciones de probabilidad en R
+#El paquete stats de R (que se instala por defecto al instalar R, y se carga en memoria 
+#siempre que iniciamos sesi?n) implementa numerosas funciones para la realizaci?n de c?lculos 
+#asociados a distintas distribuciones de probabilidad. Entre las utilizadas m?s comunmente podemos citar: 
+
+
+#  Distribuciones Discretas	      	Distribuciones Continuas
+#Distribuci?n	Nombre en R	 	         Distribuci?n  Nombre en R
+#  Binomial     	binom	                 Uniforme       unif
+#   Poisson	    pois	 	                Normal      	norm
+# Geom?trica	    geom	 	               t Student	      t
+#Hipergeom?trica	hyper	 	               F Fisher	        F
+#Binomial Negativa	nbinom	 	         Chi-Cuadrado	   chisq
+#                                      Exponencial	     exp
+#                                         Gamma      	gamma
+#                                         Weibull    	weibull
+#                                     W de Wilcoxon  	wilcox
+
+help(Distributions)
+
+#se nos muestra el listado de distribuciones de probabilidad disponibles en el paquete stats. 
+#Otras distribuciones est?n disponibles en otros paquetes.
+
+#Para cada distribuci?n, R dispone de cuatro funciones. Se puede acceder a cada una de ellas 
+#simplemente precediendo el nombre de la distribuci?n que figura en la tabla anterior por la letra 
+#que se indica a continuaci?n:
+
+#d: funci?n de densidad o de probabilidad.
+#p: funci?n de distribuci?n
+#q: funci?n para el c?lculo de cuantiles.
+#r: funci?n para simular datos con dicha distribuci?n.
+?dbeta
+
+#****************** Binomial *******************#
+#Un examen tiene 20 preguntas y cada una tiene 5 opciones
+#como respuesta, siendo solamente una de ellas la correcta. Si un
+#estudiante contesta cada pregunta al azar, contesta lo siguiente 
+
+#a) ?cual es la probabilidad de que obtenga 11 o más aciertos?
+#b) ?Cual es la probabilidad de obtener exactamente 14 aciertos?
+#c) ?Cual es la probabilidad de obtener máximo 12 aciertos?
+#*  
+
+#a) 
+pbinom(10,20,1/5, lower.tail = FALSE)
+#b)
+dbinom(14,20,1/5) #Buscamos valor exacto
+#c)
+pbinom(12,20,1/5, lower.tail = T)
+
+
+#******************Distribucion Hipergeometrica********************#
+
+#De un grupo de 20 ingenieros con doctorado, se eligen 10 aleatoriamente con el fin de contratarlos.
+#?Cu?l es la probabilidad de que entre los 10 seleccionados, est?n los 5 mejores del grupo de 20?
+
+#Sea la variable aleatoria discreta X, mejores ingenieros de un grupo.
+
+#Dicha variable aleatoria, sigue una distribuci?n Hipergeom?trica con par?metros:
+
+#N = 20. N?mero total de ingenieros.
+#n = 10. Muestra aleatoria de la poblaci?n total de ingenieros (20 ingenieros).
+#k = 5. Conjunto de 5 ingenieros est?n los 5 mejores.
+
+dhyper(5,10,20-10,5)
+
+#Un producto industrial, se env?a en lotes de 20 unidades. Se muestrean 5 art?culos de cada lote y 
+#el rechazo del lote completo si se encuentra m?s de un art?culo defectuoso.
+
+#Si un lote contiene 4 art?culos defectuosos, ?cu?l es la probabilidad de que sea rechazado?
+  
+#Sea la variable aleatoria discreta X, n?mero de art?culos para que el lote sea rechazado.
+
+#Dicha variable aleatoria, sigue una distribuci?n Hipergeom?trica con par?metros:
+  
+#N = 20. N?mero total de unidades.
+#n = 5. Muestra aleatoria de la poblaci?n total de cada lote (20 unidades en cada lote).
+#k = 4. Art?culos defectuosos en un lote.
+
+phyper(1, 5, 20-5, 4, lower.tail = F)
+
+#******************Distribucion Poisson*************************#
+
+# Un call center recibe varias llamadas por minuto; con un parámetro de 0.5 determina 
+#lo siguiente a través de una distribución de Poisson
+
+#a) La probabilidad de que en un minuto al azar, se reciba solo una llamada.
+#b) La probabilidad de que en un minuto al azar, se reciban máximo 5 llamadas.
+#c) La probabilidad de que en un minuto al azar, se reciban más de 2 llamadas por minuto.
+#d) El número de llamadas por minuto, mínimo que debe recibir el call center para que 
+#exista una probabilidad del 95%. 
+
+
+dpois(c(1), 0.5)
+ppois(c(5), 0.5)
+ppois(c(2), 0.5, lower.tail=F)
+qpois(0.95, 0.5)
+
+
+#************************Distribucion Normal***************************#
+#Se asume que las calificaciones del examen de la clase de Estad?stica se distribuyen de forma normal.
+#Si la media del grupo es de 68, con una desviaci?n est?ndar de 16.8
+
+#a) El profesor dijo al grupo que aquellas personas con una calificaci?n mayor a 90, excentaráan el trabajo final.
+#?Cuál es el porcentaje de estudiantes que obtuvieron una calificación mayor a 90?
+
+pnorm(90, mean=68, sd=16.8, lower.tail=FALSE)
+
+#(Se pone "lower.tail=FALSE" ya que se busca a los alumnos que obtuvieron 90 o m?s, por tanto es la "upper tail" de la distribuci?n)
+#El porcentaje de alumnos que obtuvieron 90 puntos o m?s es de 11.81%
+
+#b) Si se elige un examen al azar, ?cu?l es la probabilidad de que el examen tenga 
+#una calificaci?n reprobatoria (menor a 6)?
+
+pnorm(60, mean=68, sd=16.8)
+
+#La probabilidad es de 31.7% de que el alumno haya reprobado el examen.
+
+
+
+#******************Distribución Gamma*******************#
+
+#En cierta ciudad, el consumo diario de energía el?ctrica en millones de kilovatios por hora, puede considerarse 
+#como una variable aleatoria con distribución Gamma de  la forma (3, 0.5)
+#La planta de energía de esta ciudad tiene una capacidad, suficiente diaria de 10 millones de kW/hora. 
+#Sea la variable aleatoria continua X el consumo diario de energia eléctrica, en millones de kW/hora.  
+#Determinar la probabilidad de que este abastecimiento sea:
+
+#a) Insuficiente en un día cualquiera.
+P(X > 10)
+pgamma(10, 3, rate = 0.5, lower.tail = F)
+
+1-pgamma(10, 3, rate = 0.5)
+
+
+
+#b) Se consuman entre 3 y 8 millones de kW/hora.
+P(3 < X < 8)
+pgamma(8, 3, rate = 0.5, lower.tail = T) - pgamma(3, 3, rate = 0.5, lower.tail = T)
+
+#c) Obtener el consumo necesario para una probabilidad de: P(X < x) = 0.9
+qgamma(0.9, 3, rate = 0.5, lower.tail = T)
+
+
+#******************Distribución geométrica**********************#
+#En un proceso de manufactura se sabe que la probabilidad de obtener una pieza defectuosa 
+#es del 2% ¿Cuál es la probabilidad de que la octava pieza inspeccionada sea la defectuosa?
+dgeom(8,0.02)
+
+
+#Suponga que se tiene un interruptor que tiene una probabilidad de 0.04 de fallar, es necesario
+#remplazar el interruptor cuando este falle. Calcule la probabilidad que el interruptor pueda ser 
+#usado más de 100 veces antes de que tenga que ser reemplazado.
+#Sea X: el numero de veces que pueda ser utilizado el interruptor hasta que falle: P(X>100)=1-P(X<=100)
+pgeom(100 , 0.04 , lower.tail = FALSE )
+
+#O bien le restamos la unidad a la probabilidad
+1-pgeom(100,0.04)
+
+#*********************Distribución binimial negativa**********************#
+#Se lanza al aire una moneda cargada 8 veces, de tal manera que la probabilidad de que aparezca águila 
+#es de 2/3 mientras que la probabilidad de que aparezca sol es de 1/3 
+#Determine:
+#a)la probabilidad de que aparezcan tres águilas
+dnbinom(8-3,3,2/3)
+
+
+#b)La probabilidad de que aparezcan tres soles
+dnbinom(8-3,3,1/3)
+
+
+#c)la probabilidad de que caiga águila en el último lanzamiento.
+pnbinom(8-8,8,prob=2/3)
+
+
+#******************Distribución beta**********************#
+
+#Un distribuidor mayorista de gasolina tiene tanques de almacenamiento de gran capacidad con 
+#un abastecimiento fijo, los cuales se llenan cada lunes. Él desea saber el porcentaje de 
+#gasolina vendido durante la semana. Después de varias semanas de observación, el mayorista 
+#descubre que el porcentaje podría describirse mediante una distribución beta (4,2). 
+#Calcule la probabilidad de que venda por lo menos el 90% de su existencias en una semana
+
+pbeta(.9,4,2, lower.tail = FALSE)
+
+
+#******************Distribución exponencial**********************#
+
+#El tiempo durante el cual una marca de baterás trabaja en forma efectiva hasta que falle se 
+#distribuye segun el modelo exponencial con un tiempo promedio de fallas igual a 360 días.
+#Encuentra la probabilidad de que el tiempo que la batería trabaja hasta que falle sea mayor 
+
+1-pexp(400,1/360)
+#400 días.
+
