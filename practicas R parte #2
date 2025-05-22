@@ -1,0 +1,344 @@
+#practica de hipotesis nula 
+#n_muestra = 150 
+#varianza poblacional = 6,2
+#probabilidad de fallar  = 1-.99(alfa es el error)
+
+n = 150
+sigma_x = 6.2
+alfa = 0.01
+alfa_2 = 0.01 / 2
+z_alfa = qnorm(1-alfa_2)
+
+error =  (z_alfa / 2 ) * (sigma_x / sqrt(n))
+error
+
+#variacion del estimador al rededor de la media (error de 1.3 minutos)
+#con un 99% de llegada tenemos que las variaciones tienen un 1.33 hacia delante y hacia atras
+
+################################################################################
+
+round((E=alfa_2*))
+
+"Para construir el intervalo de confianza"
+
+n=20
+sigma_cuadradaX = 225
+sigma_sqr = sqrt(sigma_cuadradaX)
+alfa = 0.05
+alfa_2 = alfa / 2 
+x_media = 64.3
+Z_alfa = qnorm(1-alfa_2)
+CI = .95
+
+round(E = z_alfa * sigma_sqr / sqrt(n),2 )
+
+c((Li = xbarra - E),(Ls = xbarra + E))
+
+################################################################################
+#test para el nivel de confianza:
+
+library(BSDA)
+sigma = sqrt(225)
+
+zsum.test(mean.x = 64.3, sigma.x = sigma, n.x = 20, conf.level = 0.95, 
+          alternative = "two.sided")$conf.int
+
+attr(,"ci")
+
+################################################################################
+
+n = 40 
+x_promedio = 5.6 
+des_vest = 2.1 
+
+mean.x = x_promedio
+sigma_x = des_vest
+n_x = x_promedio 
+ci = 
+
+"construir intervalo de confianza" #con el 95% y con el 98% de confianza
+
+zsum.test(mean.x = x_promedio, sigma.x = sigma_x, n.x = n, conf.level = 0.95, 
+          alternative = "two.sided")$conf.int
+
+attr(,"ci")
+
+zsum.test(mean.x = x_promedio, sigma.x = sigma_x, n.x = n, conf.level = 0.98, 
+          alternative = "two.sided")$conf.int
+
+attr(,"ci")
+
+################################################################################
+
+n = 36
+ci = 0.98
+sujeto1 <-c(17,26,16)
+sujeto2 <-c(13,23,10)
+sujeto3 <-c(18,24,20)
+sujeto4 <-c(19,20,22)
+sujeto5 <-c(17,8,19)
+sujeto6 <-c(21,17,14)
+sujeto7 <-c(29,17,30)
+sujeto8 <-c(22,21,22)
+sujeto9 <-c(16,32,12)
+sujeto10 <-c(28,18,24)
+sujeto11 <-c(21,25,28)
+sujeto12 <-c(15,22,11)
+
+sujetos<-c(sujeto1,sujeto2,sujeto3, sujeto4,sujeto5,sujeto6,sujeto7,sujeto8,sujeto9,sujeto10,
+          sujeto11,sujeto12)
+
+n = legth(sujetos); s = sd(datos); x_barra = mean(sujetos), alpha = 1- ci
+alpha2 = alpha/2
+
+talpha = qt(1-alpha2, n-1)
+E = alpha2*s/sqrt(n)
+
+################################################################################
+
+t.test(sujetos, conf.level = 0.98)$conf
+attr(,"conf.level")
+
+n =  12 ; s = 49.6 ; xbarra = 214.1 ; apha = $=0.05$ ; alfa2 = alfa /2
+alfa_Z = qt(1-alfa_2, n-1)
+E = round(alfa_Z*s/sqrt(n),2)
+c((Li =xbarra - E), (Ls = xbarra + E))
+
+################################################################################
+
+library(DescTools) #sirve solo cuando es conocida la varianza poblacional
+
+int<-TTestA(mx = 214.1, sx = 49.6, nx = 12, conf.level = 0.95)$conf.int
+int
+
+attr( ,"conf.level")
+
+
+################################################################################
+
+int<-TTestA(mx = 1.63, sx = 0.0584, nx = 25, conf.level = 0.90)$conf.int
+int
+
+attr(, "conf.level")
+
+
+################################################################################
+
+
+int<-TTestA(mx = 34, sx = 6.9, nx = 20, conf.level = 0.98)$conf.int
+int
+
+attr(, "conf.level")
+
+Ejemplo 3.10 
+
+x <- 130; n <- 210; p1 <- x/n
+alpha <- 0.05; alpham <- alpha/2
+E <- qnorm(1 - alpha m)sqrt(p1(1-p1)/n)
+c((Li=round (p1-E,4)), (ls=p1+E))
+[1] 0.553400 0.684728
+
+################################################################################
+
+3.2 Intervalos de confianza para una proporción
+
+Construir un 95% de confianza para un grupo de personas.
+n<- 846; p1 <- 0.45; alpha <- 0.05; alpham <- alpha/2; x <- 846*0.45
+int<- prop.test(x,n, conf.level=1 - alpha, correct=F)$conf.int
+int
+[1] 0.4167775 0.4836745
+attr(, "conf.level")
+[1] 0.95
+
+################################################################################
+
+Ejemplo 3.17 Suponga que para un grupo de 30 personas seleccionadas 
+
+n=30: s=4.52
+alpha <- 0-04; alpham <- alpha/2
+sup <- qchisq(alpham, df = n-1, lower.tail = T)
+inf <- qchisq(p=1 - alpham, df = n-1, lower.tail=T)
+c(Li <- (n-1)*s^2/inf, Ls z- (n-1)*s^2/sup)
+[1] 12.68896 38.04181
+
+################################################################################
+N_X=11 ; N_Y=5; S_X=18; S_Y=11; alpha=0.05; alpham= alpha/2
+
+i<-qf(p=0.025, df1= N_X-1, df2=N_Y-1, lower.tail = T)
+
+
+
+
+################################################################################
+
+# Datos
+n_urbana <- 12
+media_urbana <- 215.9
+sd_urbana <- 49.8
+
+n_rural <- 16
+media_rural <- 211.5
+sd_rural <- 49.1
+
+# Cálculo del intervalo de confianza
+diferencia <- media_urbana - media_rural
+
+# Varianza ponderada (asumiendo varianzas iguales)
+var_ponderada <- ((n_urbana-1)*sd_urbana^2 + (n_rural-1)*sd_rural^2)/(n_urbana + n_rural - 2)
+error_estandar <- sqrt(var_ponderada*(1/n_urbana + 1/n_rural))
+
+# Grados de libertad
+gl <- n_urbana + n_rural - 2
+
+# Valor crítico t (95% de confianza)
+t_critico <- qt(0.975, gl)
+
+# Límites del intervalo
+lim_inf <- diferencia - t_critico*error_estandar
+lim_sup <- diferencia + t_critico*error_estandar
+
+# Resultado
+cat("Intervalo de confianza al 95% para la diferencia de medias (urbana - rural):\n")
+cat("[", lim_inf, ", ", lim_sup, "]\n", sep="")
+
+# Prueba t para verificar
+resultado_t <- t.test(x = rnorm(n_urbana, mean = media_urbana, sd = sd_urbana),
+                      y = rnorm(n_rural, mean = media_rural, sd = sd_rural),
+                      var.equal = TRUE,
+                      conf.level = 0.95)
+
+cat("\nResultado usando t.test():\n")
+print(resultado_t$conf.int)
+
+
+# Datos de las muestras
+x_bar <- 215.9  # Promedio en la zona urbana
+y_bar <- 211.5  # Promedio en la zona rural
+s_x <- 49.8  # Desviación estándar en la zona urbana
+s_y <- 49.1  # Desviación estándar en la zona rural
+n_x <- 12  # Número de muestras en la zona urbana
+n_y <- 16  # Número de muestras en la zona rural
+
+# Diferencia de medias
+diff_means <- x_bar - y_bar
+
+# Error estándar de la diferencia
+se_diff <- sqrt((s_x^2 / n_x) + (s_y^2 / n_y))
+
+# Grados de libertad para la aproximación de Welch
+df <- ( (s_x^2 / n_x + s_y^2 / n_y)^2 ) / ( ((s_x^2 / n_x)^2) / (n_x - 1) + ((s_y^2 / n_y)^2) / (n_y - 1) )
+
+# Valor t para un intervalo de confianza del 95%
+t_value <- qt(0.975, df)
+
+# Intervalo de confianza
+lower_bound <- diff_means - t_value * se_diff
+upper_bound <- diff_means + t_value * se_diff
+
+# Resultados
+cat("El intervalo de confianza del 95% para la diferencia de medias es: [", lower_bound, ",", upper_bound, "]\n")
+
+
+################################################################################
+
+#prueba de dos colas 
+#Encontrar la probabilidad de encontrar el error tipo 1:
+#se busca ver si estadisticamente la prueba esta alrededor de 60 o esta cerca, puede
+#ser mayor o menor.
+"significancia =  alfa"
+
+significancia <- alfa
+
+p1 <- pnorm(q= 64, mean = 60, sd= 6/sqrt(9))
+p2 <- pnorm(q= 56, mean = 60, sd= 6/sqrt(9))
+beta1 <- p1 - p2
+potencia1<-1-beta1; potencia1
+
+
+alpha<- 0.05; alpham <-alpha/2; mu<-60; sigma<-6; n<-49
+zalpham <- qnorm(1-alpham)
+lirechazo <- mu - zalpham * sigma / sqrt(n)
+lsrechazo <- mu + zalpham * sigma / sqrt(n)
+c(lirechazo, lsrechazo) #intervalo del valor del parametro basado en el intervalo de confianza
+#el valor que se espera que no caiga es el valor de alfa. 
+
+################################################################################
+#contrastar la hipotesis de que el tiempo de prueba es de menos de 25 min
+
+x_muestra <- 22.23 ; mu_x <- 25;  s_x <- 1.71;  sigma_x <- 2.8; n= 30
+
+#H0 = mu < 25  VS H1 mu > 25 
+
+#Calculo del estadistico de prueba:
+Zc <- c((x_muestra - mu_x ) / (sigma_x / sqrt(n)))
+Zc #nivel de significancia 5% ; z vale 1.96
+zalpha <- qnorm(1-alpha)
+zalpha <- -zalpha
+zalpha
+
+
+#la region de rechazo esta del lado derecho
+#la zona de rechazo lo define la hipotesis alternativa
+#no se rechaza H0, de que el tiempo en promedio de atencion sea de 25 min
+
+################################################################################
+
+alpha<- 0.05; alpham <-alpha/2; mu<-60; sigma<-6; n<-49
+zalpham <- qnorm(1-alpham)
+lirechazo <- mu - zalpham * sigma / sqrt(n)
+lsrechazo <- mu + zalpham * sigma / sqrt(n)
+
+Z<- alfa / 2
+
+
+################################################################################
+
+library(DescTools) #sirve para el z test , la prueba de hipotesis 
+#(alternativa prueba de 1 o 2 colas)
+alpha <- 0.05; sigma <- 2.8; n<-30; mu<-25
+zalphaz<- 
+  
+################################################################################
+#calcular el p-value
+p<-1 - pnorm(abs(z)); p 
+z
+
+
+
+alpha <- 0.05; sigma <- 2.8; n<-30; mu<- 25
+zalpha<-qnorm(1-alpha)
+rechazo<- mu - zalpha * sigma /sqrt(n) ; rechazo
+
+#que probabilidad es que con esta informacion tienes un error tipo 2 (falso positivo)
+potencia<-pnorm(22.23, mean = 23, sd= 2.8 / sqrt(30)); potencia
+#cambiar el primer valor a 22.23 o 24.16
+
+#el valor bajo significa que coincide con el nivel de signifincia
+#error tipo 2; prueba dice que valor error arriba del que contrasta y un valor abajo
+#que tanta probabilidad dara un error tipo 2
+
+#potencia del error es cercano a 1
+
+
+
+################################################################################
+#estimacion de los parametros de la media y la desviacion estandar
+
+fitdistr(x, densfun)
+
+library(MASS) #no funciona bien la libreria
+
+set.seed(123)
+x1 <- rnorm(n=15, mean=150, s=9)
+fitdistr(x=x1, densfun="normal")
+
+
+#se simula una segunda muestra
+
+set.seed(1234)
+x2 <- rnorm(n=1500, mean=150, sd=9)
+fitdistr(x=x2, densfun="normal")
+
+#se calcula la media y la desviacion estandar
+
+
