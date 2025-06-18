@@ -1,0 +1,47 @@
+"Examen de preparacion para el curso de derivados"
+
+#nociones basicas de estadistica
+"Problema"
+
+#Sea X una variable aleatorioa con u = 1 , varianza = 0 , calcular:
+
+#a) la probabilidad de que X no sea superior a uno P(X<=1)
+#b) introduce que probabilidad hay que X no sea menos de dos, P(X>=-2)
+
+
+# Parámetros de la distribución normal
+media <- 1
+desviacion <- 2  # Raíz cuadrada de la varianza (4)
+
+# Pregunta 1: P(X ≤ 1)
+p1 <- pnorm(1, mean = media, sd = desviacion)
+cat("P(X ≤ 1) =", p1, "\n")
+
+# Pregunta 2: P(X ≥ -2) = 1 - P(X < -2)
+p2 <- 1 - pnorm(-2, mean = media, sd = desviacion)
+cat("P(X ≥ -2) =", p2, "\n")
+
+
+################################################################################
+
+"Ejercicio 2"
+
+# Valores posibles de X
+valores <- c(0, 1, 2)
+
+# Probabilidades correspondientes
+probabilidades <- c(1/4, 1/4, 1/2)
+
+# Calcular valor esperado (media)
+esperado <- sum(valores * probabilidades)
+
+# Calcular E[X^2]
+esperado_cuadrado <- sum(valores^2 * probabilidades)
+
+# Calcular varianza: Var(X) = E[X^2] - (E[X])^2
+varianza <- esperado_cuadrado - esperado^2
+
+# Mostrar resultados
+cat("Valor esperado E[X]:", esperado, "\n")
+cat("Varianza Var(X):", varianza, "\n")
+
